@@ -6,10 +6,10 @@ import { notFound } from "next/navigation";
 import { Slug } from "sanity";
 
 type RouteParams = {
-  params: {
+  params: Promise<{
     slug: string[];
     locale: string;
-  };
+  }>;
 };
 
 export const dynamicParams = true;
@@ -21,19 +21,21 @@ export async function generateStaticParams(): Promise<
 }
 
 export async function generateMetadata({
-  params: { slug, locale },
+  params,
 }: RouteParams): Promise<Metadata> {
+  const { slug, locale } = await params;
   const [{ data: service }, { data: generalSettings }] = await Promise.all([
     loadService({ slug, language: locale }),
     loadSettings({ name: "generalSettings", language: locale }),
   ]);
 
-  return getMetadata(service, { slug: slug.join("/") }, generalSettings.domain);
+  return getMetadata(service, { slug: slug.join("/") }, generalSettings?.domain ?? "");
 }
 
 export default async function Post({
-  params: { locale, slug },
-}: RouteParams): Promise<JSX.Element> {
+  params,
+}: RouteParams): Promise<React.ReactElement> {
+  const { locale, slug } = await params;
   const { data: service } = await loadService({ slug, language: locale });
 
   if (!service) {

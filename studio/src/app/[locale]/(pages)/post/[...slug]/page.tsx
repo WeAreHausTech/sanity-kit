@@ -6,10 +6,10 @@ import { Metadata } from "next";
 import { loadPost } from "@/loaders/loadPost";
 
 interface RouteParams {
-  params: {
+  params: Promise<{
     slug: string[];
     locale: string;
-  };
+  }>;
 }
 
 export const dynamicParams = true;
@@ -21,19 +21,21 @@ export async function generateStaticParams(): Promise<
 }
 
 export async function generateMetadata({
-  params: { slug, locale },
+  params,
 }: RouteParams): Promise<Metadata> {
+  const { slug, locale } = await params;
   const [{ data: post }, { data: generalSettings }] = await Promise.all([
     loadPost({ slug, language: locale }),
     loadSettings({ name: "generalSettings", language: locale }),
   ]);
 
-  return getMetadata(post, { slug: slug.join("/") }, generalSettings.domain);
+  return getMetadata(post, { slug: slug.join("/") }, generalSettings?.domain ?? "");
 }
 
 export default async function Post({
-  params: { slug, locale },
-}: RouteParams): Promise<JSX.Element> {
+  params,
+}: RouteParams): Promise<React.ReactElement> {
+  const { slug, locale } = await params;
   const { data: post } = await loadPost({ slug, language: locale });
 
   if (!post) {

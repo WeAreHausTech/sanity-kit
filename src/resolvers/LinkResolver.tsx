@@ -2,7 +2,7 @@
 
 import type { LinkProps as NextLinkProps } from "next/link";
 import Link from "next/link";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { LinkPayload } from "../types/object";
 import { resolveDocumentHref } from "../utils/url";
 
@@ -18,7 +18,7 @@ export function LinkResolver({
   children: ReactNode;
   defaultToTop?: boolean;
   locale?: string;
-} & Omit<LinkResolverProps, "href">): JSX.Element {
+} & Omit<LinkResolverProps, "href">): ReactElement {
   const linkProps: any = {
     // Defaults to home.
     href: "/",

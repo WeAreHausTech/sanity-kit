@@ -1,4 +1,4 @@
-import { ComponentType, Fragment } from "react";
+import { ComponentType, Fragment, type ReactElement } from "react";
 import { getModules } from "../utils/config";
 import { ModuleErrorBoundary } from "./ErrorBoundary";
 
@@ -16,7 +16,7 @@ export const getBlock = (type: string): ComponentType<any> | null => {
 
 export function ModuleResolver({
   data,
-}: ModuleResolverProps): (JSX.Element | null)[] | null {
+}: ModuleResolverProps): (ReactElement | null)[] | null {
   if (!data || !Boolean(data.length)) {
     return null;
   }

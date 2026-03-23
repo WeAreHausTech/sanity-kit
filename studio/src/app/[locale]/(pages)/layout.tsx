@@ -4,34 +4,39 @@ import { KitProvider } from "@webicient/sanity-kit/provider";
 import type { Metadata } from "next";
 
 interface RouteParams {
-  params: {
-    locale: string;
-  };
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: RouteParams): Promise<Metadata> {
+  const { locale } = await params;
   const { data: seoSettings } = await loadSettings({
     name: "seoSettings",
     language: locale,
   });
 
+  const siteTitle =
+    typeof seoSettings?.title === "string" ? seoSettings.title : undefined;
   return {
-    title: seoSettings?.title
-      ? { absolute: seoSettings.title, template: `%s | ${seoSettings?.title}` }
+    title: siteTitle
+      ? { absolute: siteTitle, template: `%s | ${siteTitle}` }
       : undefined,
-    description: seoSettings?.description,
+    description:
+      typeof seoSettings?.description === "string"
+        ? seoSettings.description
+        : undefined,
   };
 }
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: Readonly<{
   children: React.ReactNode;
 }> &
-  RouteParams): Promise<JSX.Element> {
+  RouteParams): Promise<React.ReactElement> {
+  const { locale } = await params;
   const { data: settings } = await loadSettings({ language: locale });
 
   return (

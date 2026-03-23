@@ -6,10 +6,10 @@ This guide will walk you through installing and setting up @webicient/sanity-kit
 
 Before you begin, ensure you have:
 
-- **Node.js 18+** installed
-- **Sanity Studio v3.45.0+** project (or create a new one)
-- **Next.js 14.2.8+** for full feature support (optional but recommended)
-- **React 18+** installed
+- **Node.js 20+** installed
+- **Sanity Studio v5.17.1+** project (or create a new one)
+- **Next.js 16+** for full feature support (optional but recommended)
+- **React 19.2+** installed
 - Basic knowledge of Sanity CMS and React
 
 ## Installation
@@ -33,7 +33,7 @@ yarn add @webicient/sanity-kit
 The plugin requires several peer dependencies. Install them if not already present:
 
 ```bash
-npm install sanity@^3.45.0 next@^14.2.8 next-sanity@^9.3.10 next-intl@^3.17.4
+npm install sanity@^5.17.1 next@^16 next-sanity@^12 next-intl@^4.4.0
 ```
 
 ## Basic Setup

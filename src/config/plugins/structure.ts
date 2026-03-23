@@ -369,14 +369,14 @@ export const structure = (): StructureResolver => {
     child = [
       ...child,
       ...maybeBuildEntitiesOrContentTypes(S, LEVEL_1, moveableSchema),
-      S.divider(),
+      S.divider() as unknown as Divider,
     ];
 
     // Level 2 is reserved for the content types.
     child = [
       ...child,
       ...maybeBuildEntitiesOrContentTypes(S, LEVEL_2, moveableSchema),
-      S.divider(),
+      S.divider() as unknown as Divider,
     ];
 
     // Level 3 is reserved other types that was registered directly to Sanity config.
@@ -386,7 +386,7 @@ export const structure = (): StructureResolver => {
     ];
 
     if (levelThreeGroup.length) {
-      child = [...child, ...levelThreeGroup, S.divider()];
+      child = [...child, ...levelThreeGroup, S.divider() as unknown as Divider];
     }
 
     // Level 4 is reserved for the settings.
@@ -402,7 +402,7 @@ export const structure = (): StructureResolver => {
     ];
 
     if (levelFiveGroup.length) {
-      child = [...child, S.divider(), ...levelFiveGroup];
+      child = [...child, S.divider() as unknown as Divider, ...levelFiveGroup];
     }
 
     // TODO: i18n

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactElement } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 function Fallback({
@@ -7,7 +8,7 @@ function Fallback({
   resetErrorBoundary,
   moduleName,
   ...props
-}: any): JSX.Element | null {
+}: any): ReactElement | null {
   if (props) {
     console.error("ModuleErrorBoundary", moduleName, error);
   }
@@ -19,7 +20,7 @@ export function ModuleErrorBoundary({
   children,
   moduleName,
   ...props
-}: any): JSX.Element {
+}: any): ReactElement {
   return (
     <ErrorBoundary
       {...props}

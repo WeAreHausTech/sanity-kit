@@ -1,10 +1,11 @@
-import { VisualEditing } from "next-sanity";
+import React, { Fragment } from "react";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { DisablePreviewMode } from "./DisablePreviewMode";
-import { Fragment } from "react";
 
-export function KitVisualEditing() {
-  if (!draftMode().isEnabled) {
+export async function KitVisualEditing() {
+  const { isEnabled } = await draftMode();
+  if (!isEnabled) {
     return null;
   }
 

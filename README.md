@@ -17,7 +17,7 @@ A comprehensive Sanity plugin that provides curated pre-built features for Sanit
 
 ## Overview
 
-`@webicient/sanity-kit` is an opinionated Sanity v3 plugin that provides a complete toolkit for building content-driven websites and applications. It includes pre-configured schemas, query builders, React components, and utilities that follow best practices for Sanity CMS development.
+`@webicient/sanity-kit` is an opinionated Sanity v5 plugin that provides a complete toolkit for building content-driven websites and applications. It includes pre-configured schemas, query builders, React components, and utilities that follow best practices for Sanity CMS development.
 
 ### What is Sanity Kit?
 
@@ -75,10 +75,10 @@ This plugin is designed for:
 
 ### Requirements
 
-- Node.js 18+
-- Sanity v3.45.0+
-- Next.js 14.2.8+ (for full feature support)
-- React 18+
+- Node.js 20+
+- Sanity v5.17.1+
+- Next.js 16+ (for full feature support)
+- React 19.2+
 
 ### Install the Package
 

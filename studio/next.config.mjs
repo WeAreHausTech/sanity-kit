@@ -7,4 +7,4 @@ const nextConfig = {
   },
 };
 
-export default createNextIntlPlugin()(nextConfig);
+export default createNextIntlPlugin("./src/i18n.ts")(nextConfig);

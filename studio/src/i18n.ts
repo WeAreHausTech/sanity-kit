@@ -1,14 +1,19 @@
 import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
-import { locales } from "./config";
+import { defaultLocale, locales } from "./config";
 
 export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid.
-  if (!locales.includes(locale as any)) {
+  const resolvedLocale =
+    locale && locales.includes(locale as (typeof locales)[number])
+      ? locale
+      : defaultLocale;
+
+  if (resolvedLocale !== locale) {
     notFound();
   }
 
   return {
-    messages: (await import(`../messages/${locale}.json`)).default,
+    locale: resolvedLocale,
+    messages: (await import(`../messages/${resolvedLocale}.json`)).default,
   };
 });

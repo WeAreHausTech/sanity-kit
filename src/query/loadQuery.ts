@@ -31,9 +31,10 @@ const usingCdn = loadQueryClient.config().useCdn;
  * @param options - The options for the query
  * @returns The result of the query
  */
-export const loadQuery = ((query, params = {}, options = {}) => {
+export const loadQuery = (async (query, params = {}, options = {}) => {
+  const { isEnabled } = await draftMode();
   const {
-    perspective = draftMode().isEnabled ? "previewDrafts" : "published",
+    perspective = isEnabled ? "previewDrafts" : "published",
   } = options;
 
   // Don't cache by default.
@@ -53,6 +54,6 @@ export const loadQuery = ((query, params = {}, options = {}) => {
       ...(options.next || {}),
     },
     perspective,
-    stega: { enabled: draftMode().isEnabled },
+    stega: { enabled: isEnabled },
   });
 }) satisfies typeof queryStore.loadQuery;

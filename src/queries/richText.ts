@@ -10,7 +10,7 @@ function richTextBlockQueryField(language?: string): string {
   return `
     _type == "block" => {
       ...,
-      markDefs[] {
+      "markDefs": coalesce(markDefs, [])[]{
         ...,
         _type == "link" => { ${linkQueryFields(language)} }
       }

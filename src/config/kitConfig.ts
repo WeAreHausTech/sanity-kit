@@ -79,10 +79,11 @@ export interface KitConfig {
   languages?: (Language & { isDefault?: boolean })[];
   custom?: Custom;
   disableDefault?: {
-    schema?: { contentTypes?: string[]; taxonomies?: string[] };
+    schema?: { contentTypes?: string[]; taxonomies?: string[]; entities?: string[] };
   };
   resolve?: Resolve;
   richText?: ReturnType<typeof defineType>[];
+  draftPreview?: boolean;
 }
 
 let config: KitConfig | null = null;
@@ -126,11 +127,20 @@ export function kitConfig(_config: KitConfig): KitConfig {
     );
   }
 
+  let defaultEntities = [home, page404];
+
+  if (_config.disableDefault?.schema?.entities) {
+    defaultEntities = defaultEntities.filter(
+      (entity) =>
+        !_config.disableDefault?.schema?.entities?.includes(entity.name),
+    );
+  }
+
   return once(() => {
     config = deepmerge(
       {
         schema: {
-          entities: [home, page404],
+          entities: defaultEntities,
           contentTypes: defaultContentTypes,
           objects: [seo, kitPreset],
           taxonomies: defaultTaxonomies,
@@ -145,6 +155,7 @@ export function kitConfig(_config: KitConfig): KitConfig {
         },
         languages: [],
         richText: [],
+        draftPreview: false,
       },
       _config,
     );

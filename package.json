@@ -80,7 +80,8 @@
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
     "watch": "pkg-utils watch --strict",
-    "test": "vitest"
+    "test": "vitest",
+    "security:audit": "yarn npm audit -A -R --severity high --environment production"
   },
   "dependencies": {
     "@next/third-parties": "14.2.5",
